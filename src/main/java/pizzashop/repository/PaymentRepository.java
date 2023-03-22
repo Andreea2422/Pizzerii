@@ -38,7 +38,7 @@ public class PaymentRepository {
 
     private Payment getPayment(String line){
         Payment item=null;
-        if (line==null|| line.equals("")) return null;
+        if (line.equals("")) return null;
         StringTokenizer st=new StringTokenizer(line, ",");
         int tableNumber= Integer.parseInt(st.nextToken());
         String type= st.nextToken();

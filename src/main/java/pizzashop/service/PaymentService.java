@@ -6,10 +6,10 @@ import pizzashop.model.PaymentType;
 
 import java.util.Optional;
 
-public class PaymentAlert implements PaymentOperation {
+public class PaymentService implements PaymentOperation {
     private PizzaService service;
 
-    public PaymentAlert(PizzaService service){
+    public PaymentService(PizzaService service){
         this.service=service;
     }
 

@@ -25,7 +25,10 @@ public class KitchenGUIController {
     public  Thread addOrders = new Thread(new Runnable() {
         @Override
         public void run() {
+            int i =0;
             while (true) {
+                if(i==Integer.MAX_VALUE)
+                    break;
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
@@ -37,6 +40,7 @@ public class KitchenGUIController {
                   } catch (InterruptedException ex) {
                     break;
                 }
+                i++;
             }
         }
     });
