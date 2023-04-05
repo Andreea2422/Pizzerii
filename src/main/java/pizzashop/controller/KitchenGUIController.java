@@ -6,35 +6,31 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+
 import java.util.Calendar;
 
 public class KitchenGUIController {
     @FXML
-    private ListView kitchenOrdersList;
+    private ListView<String> kitchenOrdersList;
     @FXML
     public Button cook;
     @FXML
     public Button ready;
 
-    public static  ObservableList<String> order = FXCollections.observableArrayList();
+    protected static final ObservableList<String> order = FXCollections.observableArrayList();
     private Object selectedOrder;
     private Calendar now = Calendar.getInstance();
-    private String extractedTableNumberString = new String();
+    private String extractedTableNumberString;
     private int extractedTableNumberInteger;
     //thread for adding data to kitchenOrderList
-    public  Thread addOrders = new Thread(new Runnable() {
+    public final Thread addOrders = new Thread(new Runnable() {
         @Override
         public void run() {
             int i =0;
             while (true) {
                 if(i==Integer.MAX_VALUE)
                     break;
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        kitchenOrdersList.setItems(order);
-                        }
-                });
+                Platform.runLater(() -> kitchenOrdersList.setItems(order));
                 try {
                     Thread.sleep(100);
                   } catch (InterruptedException ex) {

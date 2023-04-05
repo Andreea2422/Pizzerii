@@ -8,6 +8,7 @@ import java.util.Optional;
 
 public class PaymentService implements PaymentOperation {
     private PizzaService service;
+    private static final String LINES = "--------------------------";
 
     public PaymentService(PizzaService service){
         this.service=service;
@@ -15,23 +16,23 @@ public class PaymentService implements PaymentOperation {
 
     @Override
     public void cardPayment() {
-        System.out.println("--------------------------");
+        System.out.println(LINES);
         System.out.println("Paying by card...");
         System.out.println("Please insert your card!");
-        System.out.println("--------------------------");
+        System.out.println(LINES);
     }
     @Override
     public void cashPayment() {
-        System.out.println("--------------------------");
+        System.out.println(LINES);
         System.out.println("Paying cash...");
         System.out.println("Please show the cash...!");
-        System.out.println("--------------------------");
+        System.out.println(LINES);
     }
     @Override
     public void cancelPayment() {
-        System.out.println("--------------------------");
+        System.out.println(LINES);
         System.out.println("Payment choice needed...");
-        System.out.println("--------------------------");
+        System.out.println(LINES);
     }
       public void showPaymentAlert(int tableNumber, double totalAmount ) {
         Alert paymentAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -43,16 +44,18 @@ public class PaymentService implements PaymentOperation {
         ButtonType cancel = new ButtonType("Cancel");
         paymentAlert.getButtonTypes().setAll(cardPayment, cashPayment, cancel);
         Optional<ButtonType> result = paymentAlert.showAndWait();
-        if (result.get() == cardPayment) {
-            cardPayment();
-            service.addPayment(tableNumber, PaymentType.Card,totalAmount);
-        } else if (result.get() == cashPayment) {
-            cashPayment();
-            service.addPayment(tableNumber, PaymentType.Cash,totalAmount);
-        } else if (result.get() == cancel) {
-             cancelPayment();
-        } else {
-            cancelPayment();
+        if(result.isPresent()) {
+            if (result.get() == cardPayment) {
+                cardPayment();
+                service.addPayment(tableNumber, PaymentType.Card, totalAmount);
+            } else if (result.get() == cashPayment) {
+                cashPayment();
+                service.addPayment(tableNumber, PaymentType.Cash, totalAmount);
+            } else if (result.get() == cancel) {
+                cancelPayment();
+            } else {
+                cancelPayment();
+            }
         }
     }
 }

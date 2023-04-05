@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class PaymentRepository {
-    private static String filename = "data/payments.txt";
+public class PaymentRepositoryMock extends PaymentRepository {
+    private static String filename = "data/paymentsMock.txt";
     private List<Payment> paymentList;
 
-    public PaymentRepository(){
+    public PaymentRepositoryMock(){
         this.paymentList = new ArrayList<>();
         readPayments();
     }
@@ -57,16 +57,20 @@ public class PaymentRepository {
     }
 
     public void writeAll(){
+        //ClassLoader classLoader = PaymentRepository.class.getClassLoader();
         File file = new File(filename);
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+
+        BufferedWriter bw = null;
+        try {
+            bw = new BufferedWriter(new FileWriter(file));
             for (Payment p:paymentList) {
                 System.out.println(p.toString());
                 bw.write(p.toString());
                 bw.newLine();
             }
+            bw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 }

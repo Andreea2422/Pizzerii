@@ -12,23 +12,18 @@ public class MenuRepository {
     private List<Order> listMenu;
 
     public MenuRepository(){
+        //Do nothing
     }
 
-    private void readMenu(){
-        //ClassLoader classLoader = MenuRepository.class.getClassLoader();
+    private void readMenu() {
         File file = new File(filename);
-        this.listMenu= new ArrayList();
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader(file));
+        this.listMenu = new ArrayList<>();
+        try ( BufferedReader br = new BufferedReader(new FileReader(file)) ){
             String line = null;
-            while((line=br.readLine())!=null){
-                Order menuItem=getMenuItem(line);
+            while ((line = br.readLine()) != null) {
+                Order menuItem = getMenuItem(line);
                 listMenu.add(menuItem);
             }
-            br.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
