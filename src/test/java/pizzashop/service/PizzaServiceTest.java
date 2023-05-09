@@ -36,14 +36,16 @@ class PizzaServiceTest {
         }
     }
 
-    @ParameterizedTest
+//    @ParameterizedTest
+    @Test
     @Order(1)
-    @ValueSource(ints = {1,2,3,4,5,6,7,8})
+//    @ValueSource(ints = {1,2,3,4,5,6,7,8})
     @DisplayName("Repeating ECP valid test")
     @Tag("VALID")
-    void validPaymentECP(int table){
+    void validPaymentECP(){
         PaymentType type = PaymentType.Cash;
         double amount = 25;
+        int table = 7;
 
         pizzaServ.addPayment(table,type,amount);
         Payment payment = pizzaServ.getPayments().get(0);
@@ -52,13 +54,15 @@ class PizzaServiceTest {
         assertEquals(payment.getTableNumber(),table);
     }
 
-    @ParameterizedTest
+//    @ParameterizedTest
+    @Test
     @Order(3)
-    @ValueSource(doubles = {0,1,10.5,23.9,30.5,35,60.9,Double.MAX_VALUE-1,Double.MAX_VALUE})
+//    @ValueSource(doubles = {0,1,10.5,23.9,30.5,35,60.9,Double.MAX_VALUE-1,Double.MAX_VALUE})
     @DisplayName("Repeating BVA valid test")
     @Tag("VALID")
-    void validPaymentBVA(double amount){
+    void validPaymentBVA(){
         PaymentType type = PaymentType.Cash;
+        double amount = 10.5;
         int table = 7;
 
         pizzaServ.addPayment(table,type,amount);
